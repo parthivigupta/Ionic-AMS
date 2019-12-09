@@ -1,0 +1,205 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="end">
+      <ion-icon slot="end" name="more" (click)="openHome($event)"></ion-icon>
+    </ion-buttons>
+    <ion-title>Create Agreement</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="bg">
+  <ion-card>
+    <ion-card-header>
+      <!-- <ion-card-subtitle class="bluecenter fbold head">Header Details</ion-card-subtitle> -->
+      <ion-toolbar>
+      <ion-buttons slot="end">
+          <ion-icon (click)="NextItem($event)" color="secondary" name="arrow-round-forward" slot="icon-only" ></ion-icon>
+      </ion-buttons>
+      <ion-title class="bluecenter fbold head">Header Details</ion-title></ion-toolbar>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-row>
+        <ion-col col-4>
+          <ion-label class="fbold">Agreement Type </ion-label>
+          <ion-input [(ngModel)]="agreement_type" type="text" disabled="true" placeholder="Enter Agreement type"
+            class="custom-input" maxlength="4"></ion-input>
+        </ion-col>
+        <ion-col col-4>
+          <ion-label class="fbold">Valid From </ion-label>
+          <ion-datetime [(ngModel)]="valid_from" placeholder="Enter Valid From" class="custom-input" width="10px"
+            (ionChange)="ValidfromDate($event)" ></ion-datetime>
+        </ion-col>
+        <ion-col col-4>
+          <ion-label class="fbold">Valid To </ion-label>
+          <ion-datetime [(ngModel)]="valid_to" type="date" placeholder="Enter Valid to" class="custom-input"
+            (ionChange)="ValidtoDate($event)" mode="md"></ion-datetime>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-4>
+          <ion-label class="fbold">Description </ion-label>
+          <ion-input [(ngModel)]="agreement_desc" type="text" placeholder="Enter Description" class="custom-input">
+          </ion-input>
+        </ion-col>
+        <ion-col col-4>
+          <ion-label class="fbold">Currency</ion-label>
+          <ion-input [(ngModel)]="Currency" disabled="true" placeholder="Enter Currency" class="custom-input"
+            type="text" maxlength="3"></ion-input>
+        </ion-col>
+        <ion-col col-4>
+          <ion-label class="fbold">Calculation Basis</ion-label>
+          <ion-input [(ngModel)]="calc_basis" type="text" placeholder="Enter Calculation Basis" disabled="true"
+            class="custom-input" maxlength="1"></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-4>
+          <ion-label class="fbold">Vendor </ion-label>
+          <ion-select multiple="false" [(ngModel)]="selectedVendor" placeholder="Enter Vendor Name"
+            (ionChange)="SetSelectedVendor($event)" [interfaceOptions]="{header:'Vendor'}">
+            <ion-select-option *ngFor="let data of VendorData" value="{{ data.VendorNumber }}">
+              {{ data.VendorNumber + " " + data.VendorDescription }}
+            </ion-select-option>
+          </ion-select>
+        </ion-col>
+        <ion-col col-4>
+          <ion-label class="fbold">Settlement Partner </ion-label>
+          <ion-select multiple="false" [(ngModel)]="selectedpart" placeholder="Enter Partner Number"
+            (ionChange)="SetSelectedpart($event)" [interfaceOptions]="{header:'Settlment Partner'}">
+            <ion-select-option *ngFor="let data of PartnerData" value="{{ data.VendorNumber }}">
+              {{
+                data.VendorNumber + " " + data.VendorDescription
+              }}</ion-select-option>
+          </ion-select>
+        </ion-col>
+        <ion-col col-4>
+          <ion-label class="fbold">Settlement Calender</ion-label>
+          <ion-input [(ngModel)]="calender" type="text" placeholder="Enter calender" class="custom-input"></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <!-- <ion-button (click)="NextItem($event)" color="secondary">Next</ion-button> -->
+        </ion-col>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
+  <!-- /////item -->
+  <ion-card [hidden]="hide_item">
+    <ion-card-header >
+      <ion-toolbar >
+        <ion-buttons slot="end">
+            <ion-icon (click)="NextTier($event)" color="secondary" name="arrow-round-forward" slot="icon-only" ></ion-icon>
+        </ion-buttons>
+        <ion-title class="bluecenter fbold head ">Item Details</ion-title>
+      </ion-toolbar>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-label></ion-label>
+        <ion-row *ngFor="let row of item_rows ; let i = index ">
+          <ion-col size="3">
+              <ion-label class="fbold">Department</ion-label>
+              <ion-select [(ngModel)]="row.department" (ionChange)="selectedDepartment(i,$event)"
+               [interfaceOptions]="{header:'Department'}"  placeholder = "Enter Department" >
+                <ion-select-option value="{{data.Department}}" *ngFor="let data of deptdata" id="dept + {{i}}">
+                  {{data.Department + ' ' + data.Departmentdesc}}
+                </ion-select-option>
+              </ion-select>
+          </ion-col>
+          <ion-col ion-col size="3">
+              <ion-label >Item Detail</ion-label>
+              <ion-select multiple="true" [(ngModel)]="row.item" (ionChange)="selectedItem(i,$event)"
+                (click)="getitem(i,row)" [interfaceOptions]="{header:'Items'}">
+                <ion-select-option value="{{item.ItemNumber}}" *ngFor="let item of row.ItemData" id="item+{{i}}">
+                  {{item.ItemNumber + ' ' + item.Itemdesc}}
+                </ion-select-option>
+              </ion-select>
+          </ion-col>
+          <ion-col size="2">
+              <ion-label>Valid From</ion-label>
+              <ion-datetime value=" "></ion-datetime>
+          </ion-col>
+          <ion-col size="2">
+              <ion-label>Valid To</ion-label>
+              <ion-datetime value=" "></ion-datetime>
+          </ion-col>
+          <ion-col size="1">
+            <ion-icon (click)="del(i)" name="close-circle"></ion-icon>
+          </ion-col>
+        </ion-row>
+
+      </ion-list>
+      <ion-button (click)="add()" color="secondary">Add Item</ion-button>
+      <!-- <ion-button (click)="NextTier()" color="secondary">Next</ion-button> -->
+
+    </ion-card-content>
+  </ion-card>
+  <!-- tier/////////////////////////// -->
+  <ion-card [hidden]="hide_tier">
+    <ion-card-header >
+      <ion-toolbar>
+        <ion-buttons slot="end">
+            <ion-icon (click)="NextStore($event)" color="secondary" name="arrow-round-forward" slot="icon-only" ></ion-icon>
+        </ion-buttons>
+        <ion-title class="bluecenter fbold head">Tier Details</ion-title></ion-toolbar>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <!-- <ion-row *ngFor="let row of tier_rows ; let i = index "> -->
+        <ion-row>
+
+          <ion-col size="4">
+            <ion-input [(ngModel)]="Fromvalue" required type="number" placeholder="From Value" class="custom-input">
+            </ion-input>
+          </ion-col>
+          <ion-col ion-col size="4">
+            <ion-input [(ngModel)]="Tovalue" required type="number" placeholder="To Value" class="custom-input">
+            </ion-input>
+          </ion-col>
+          <ion-col size="3">
+            <ion-input [(ngModel)]="Tierrate" required type="number" placeholder="Tier Rate" class="custom-input">
+            </ion-input>
+          </ion-col>
+          <!-- <ion-col size = "1" >
+              <ion-icon (click)="removeControl(i)" name="close-circle"></ion-icon>
+            </ion-col> -->
+        </ion-row>
+        <!-- <ion-button  (click)="addControl()">Add Tier</ion-button> -->
+      </ion-list>
+      <!-- <ion-button (click)="NextStore(event)" color="secondary">Next</ion-button> -->
+    </ion-card-content>
+  </ion-card>
+  <!-- Store/////////////////////////// -->
+  <ion-card [hidden]="hide_store">
+    <ion-card-header class=" headfont headw">
+      <ion-card-subtitle class="bluecenter fbold head">Store Details</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-row *ngFor="let row of store_rows ; let i = index ">
+          <ion-col ion-col size="4">
+              <ion-label>Store</ion-label>
+              <!-- <ion-input   type="text"  placeholder="Store" class="custom-input" (click)="Getstore()"></ion-input> -->
+              <ion-select (ionChange)="selectedStore(i,$event)" placeholder="Enter Store" [interfaceOptions]="{header:' Stores'}"> 
+                <ion-select-option *ngFor="let str of storedata" id="str+{{i}}" type="number">
+                  {{str.StoreID }}
+                  <!-- + ' ' + str.StoreDescription}} -->
+                </ion-select-option>
+              </ion-select>
+          </ion-col>
+          <!-- <ion-col size = "2" >
+              <ion-input  type="text" placeholder="Description" class="custom-input"></ion-input>
+          </ion-col> -->
+          <ion-col size="1">
+            <!-- <ion-checkbox [(ngModel)]="row.check" placeholder= "Selected"></ion-checkbox> -->
+            <ion-icon (click)="removeControlstr(i)" name="close-circle"></ion-icon>
+          </ion-col>
+
+        </ion-row>
+        <ion-button (click)="addControlstr()" color="secondary">Add Store</ion-button>
+        <ion-button color="secondary" (click)="Submit()">Submit</ion-button>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

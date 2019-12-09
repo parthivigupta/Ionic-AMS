@@ -1,0 +1,125 @@
+<ion-header>
+    <ion-toolbar color="primary">
+      <ion-title>Sales Detail</ion-title>
+      <ion-buttons slot="end">
+          <ion-icon slot="end" name="more" (click)="openHome($event)"></ion-icon>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+  <ion-card>      
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+                <!-- <ion-list>
+                    <ion-item> -->
+                      <ion-label class="fbold">Sales Type</ion-label>
+                      <ion-select [(ngModel)]="trtype" [interfaceOptions]="customPopoverOptions" interface="popover">
+                        <ion-select-option value="nes">ZAMP</ion-select-option>
+                        <ion-select-option value="n64">ZAMR</ion-select-option>
+                        <ion-select-option value="ps">ZAML</ion-select-option>
+                      </ion-select>
+                    <!-- </ion-item>
+                  </ion-list> -->
+            </ion-col>
+            <ion-col>
+                <ion-label class="fbold">Vendor </ion-label>
+                <ion-select multiple="false" [(ngModel)]="selectedVendor" placeholder="Enter Vendor Name"
+                  (ionChange)="SetSelectedVendor($event)" [interfaceOptions]="{header:'Vendor'}">
+                  <ion-select-option *ngFor="let data of VendorData" value="{{ data.VendorNumber }}">
+                    {{ data.VendorNumber + " " + data.VendorDescription }}
+                  </ion-select-option>
+                </ion-select>
+            </ion-col>
+            <ion-col></ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col><ion-button (click)="showdetail($event)" color="secondary">Show Details</ion-button></ion-col>
+          </ion-row>
+        </ion-grid>
+  </ion-card>
+  <ion-card [hidden]="hide_card">
+    <ion-grid>
+      <ion-row class="hborder fbold">
+        <ion-col size="2">
+          Sales Type
+        </ion-col>
+        <ion-col size="2">
+          Sales Number
+        </ion-col>
+        <ion-col size="2">
+          Currency
+        </ion-col>
+        <ion-col size="2">
+         Partner
+        </ion-col>
+        <ion-col size="2">
+          Sales Amount
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-grid>
+      <ion-row *ngFor="let tr of trheader" (click)="gettrheader($event,tr)">
+        <ion-col size="2">
+          <ion-label >
+            {{ tr.Trtype }}
+          </ion-label>
+        </ion-col>
+        <ion-col size="2">
+          {{ tr.Trid }}
+        </ion-col>
+        <ion-col size="2">
+          {{ tr.Trcurr }}
+        </ion-col>
+        <ion-col size="2">
+          {{ tr.Trparty }}
+        </ion-col>
+        <ion-col size="2">
+          {{ tr.Salesamt }}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+  <ion-card [hidden]="hide_item">
+      <ion-grid>
+          <ion-row class="hborder fbold">
+            <ion-col size="2">
+              Sales ID
+            </ion-col>
+            <ion-col size="2">
+              Item Number
+            </ion-col>
+            <ion-col size="2">
+              Sales Amount
+            </ion-col>
+            <ion-col size="2">
+              Sales Quantity
+            </ion-col>
+            <ion-col size="2">
+              Store
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <ion-grid>
+          <ion-row *ngFor="let tr of tritem">
+            <ion-col size="2">
+              {{tr.Trid}}
+            </ion-col>
+            <ion-col size="2">
+              {{tr.Itemnum}}
+            </ion-col>
+            <ion-col size="2">
+              {{tr.Salesamt}}
+            </ion-col>
+            <ion-col size="2">
+              {{tr.Salesquan}}
+            </ion-col>
+            <ion-col size="2">
+              {{tr.Storeid}}
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+  </ion-card>
+  </ion-content>
+  

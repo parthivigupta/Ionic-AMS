@@ -1,0 +1,100 @@
+<ion-header>
+    <ion-toolbar color="primary">
+      <ion-title>View Agreement</ion-title>
+      <ion-buttons slot="end">
+          <ion-icon slot="end" name="more" (click)="openHome($event)"></ion-icon>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+  
+    <div>
+      <ion-card>
+        <ion-row>
+          <ion-col>
+            <label>Agreement Type</label>
+            <ion-input placeholder="Volume Agreemnt" disabled="true"></ion-input>
+          </ion-col>
+          <ion-col>
+            <label>Vendor</label>
+            <ion-select multiple="false" [(ngModel)]="selectedVendor" placeholder="Enter Vendor Name"
+              (ionChange)="SetSelectedVendor($event)" [interfaceOptions]="{header:'  Vendor'}">
+              <ion-select-option *ngFor="let data of vendordata" value="{{data.VendorNumber}}">
+                {{ data.VendorNumber + ' ' + data.VendorDescription }}
+              </ion-select-option>
+            </ion-select>
+          </ion-col>
+          
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <label>Agreement</label>
+                <ion-select multiple="false" [(ngModel)]="selectedAgr" placeholder="Enter Agreement"
+                  (ionChange)="getAgr($event)" [interfaceOptions]="{header:' Agreement'}">
+                  <ion-select-option *ngFor="let data of Agrdata" value="{{data.AgrNum}}">
+                    {{ data.AgrNum }}
+                  </ion-select-option>
+                </ion-select>
+              </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-button (click)="showdetail()" color="secondary">Show Detail</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+    </div>
+  
+    <ion-card [hidden]="hide_card">
+        <ion-card-header >
+            <!-- <ion-toolbar> -->
+              
+              <ion-title class="bluecenter fbold head">Agreement Details</ion-title>
+              <!-- /ion-toolbar> -->
+          </ion-card-header>
+        <ion-card-content>
+        <ion-grid >
+            <ion-row class="hborder fbold">
+              <ion-col>Department</ion-col>
+              <ion-col>Item Number</ion-col>
+              <!-- <ion-col></ion-col> -->
+            </ion-row>
+            <ion-row *ngFor ="let data of agritem">
+              <ion-col>{{data.Department}}</ion-col>
+              <ion-col>{{data.ItemNumber}}</ion-col>
+              <!-- <ion-col></ion-col> -->
+            </ion-row>
+          </ion-grid>
+    <!-- </ion-card> -->
+    <!-- Agreemnet tiers -->
+  <!-- <ion-card> -->
+      <ion-grid [hidden]="hide_card">
+         
+        <ion-row class=" hborder">
+          <ion-col>Sequence</ion-col>
+          <ion-col>From Value</ion-col>
+          <ion-col>To Value</ion-col>
+          <ion-col>Rate</ion-col>
+        </ion-row>
+        <ion-row *ngFor="let data of agrtier">
+          <ion-col>{{data.TierSequence}}</ion-col>
+          <ion-col>{{data.TierFrom}}</ion-col>
+          <ion-col>{{data.TierTo}}</ion-col>
+          <ion-col>{{data.TierRate}}</ion-col>
+        </ion-row>
+      </ion-grid>
+    <!-- </ion-card> -->
+    <!-- Agreemnet stores -->
+    <!-- <ion-card [hidden]="hide_card"> -->
+      <ion-grid>
+        <ion-row class="hborder">
+          <ion-col>Store</ion-col>
+        </ion-row>
+        <ion-row *ngFor="let data of agrstore">
+          <ion-col>{{data.StoreID}}</ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+    </ion-card>
+  </ion-content>

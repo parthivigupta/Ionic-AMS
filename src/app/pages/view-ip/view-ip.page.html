@@ -1,0 +1,113 @@
+<ion-header>
+    <ion-toolbar color="primary">
+      <ion-title>View Accrual</ion-title>
+      <ion-buttons slot="end">
+          <ion-icon slot="end" name="more" (click)="openHome($event)"></ion-icon>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-grid>
+      <ion-row>
+          <ion-col>
+              <label>Agreement</label>
+              <ion-select multiple="false" [(ngModel)]="selectedAgr" placeholder="Enter Agreement"
+                (ionChange)="getAgr($event)" [interfaceOptions]="{header:' Agreement'}">
+                <ion-select-option *ngFor="let data of Agrdata" value="{{data.AgrNum}}">
+                  {{ data.AgrNum }}
+                </ion-select-option>
+              </ion-select>
+            </ion-col>
+            <ion-col></ion-col>
+            <ion-col></ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col><ion-button (click)="show($event)" color="secondary">Show Details</ion-button></ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+  <ion-card [hidden]="hide_card">
+    <ion-grid>
+      <ion-row class="hborder fbold">
+        <ion-col size="2">
+          Agreement Number
+        </ion-col>
+        <ion-col size="2">
+          Bucket ID
+        </ion-col>
+        <ion-col size="2">
+          Sales Amount
+        </ion-col>
+        <ion-col size="2">
+          Sales Quantity
+        </ion-col>
+        <ion-col size="2">
+          Rebate
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-grid>
+      <ion-row *ngFor="let accr of accrualheader"  (click)="navigate($event,accr)">
+        <ion-col size="2">
+          <ion-label>
+            {{ accr.AgreementNumber }}
+          </ion-label>
+        </ion-col>
+        <ion-col size="2">
+          {{ accr.BucketId }}
+        </ion-col>
+        <ion-col size="2">
+          {{ accr.Salesamount }}
+        </ion-col>
+        <ion-col size="2">
+          {{ accr.Salesquantity }}
+        </ion-col>
+        <ion-col size="2">
+          {{ accr.Rebate }}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+  <ion-card [hidden]="hide_card">
+      <ion-grid>
+          <ion-row class="hborder fbold">
+              <ion-col  size = "2" >
+                Bucket ID
+                </ion-col>
+                <ion-col size = "2" >
+                Transaction ID
+                </ion-col>
+              <ion-col size = "2" >
+                Sales Amount
+            </ion-col>
+            <ion-col size = "2" >
+              Sales Quantity
+          </ion-col>
+          <ion-col size = "2" >
+            Rebate
+        </ion-col>
+              </ion-row>
+      </ion-grid>
+    <ion-grid>
+      <ion-row *ngFor="let accr of accrualitem">
+        <ion-col size = "2" >
+          {{accr.BucketId}}
+        </ion-col>
+        <ion-col size = "2" >
+          {{accr.Transactionid}}
+        </ion-col>
+      <ion-col size = "2" >
+          {{accr.Salesamount}}
+    </ion-col>
+    <ion-col size = "2" >
+      {{accr.Salesquantity}}
+    </ion-col>
+    <ion-col size = "2" >
+      {{accr.Rebate}}
+</ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+</ion-content>

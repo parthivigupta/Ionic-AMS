@@ -1,0 +1,29 @@
+<ion-header>
+    <ion-toolbar color="primary">
+    <ion-buttons slot="end">
+      <ion-icon slot="end" name="more" (click)="openHome($event)"></ion-icon>
+    </ion-buttons>
+    <ion-title>Process Accrual</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<ion-card>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+          <ion-label class="fbold">IP Type</ion-label>
+          <ion-select [(ngModel)]="trtype" [interfaceOptions]="customPopoverOptions" interface="popover">
+            <ion-select-option value="nes">ZAMP</ion-select-option>
+            <ion-select-option value="n64">ZAMR</ion-select-option>
+            <ion-select-option value="ps">ZAML</ion-select-option>
+          </ion-select>
+      </ion-col>
+      <ion-col>
+
+      </ion-col><ion-col></ion-col>
+    </ion-row>
+    <ion-row><ion-col><ion-button (click)="cal($event)" color="secondary">Calculate Rebate</ion-button></ion-col></ion-row>
+  </ion-grid>
+</ion-card>
+</ion-content>

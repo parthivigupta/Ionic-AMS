@@ -1,0 +1,26 @@
+
+    <ion-split-pane>
+      <ion-menu contentId="content" menuId="menu1" >
+        <ion-header class="primary">
+          <ion-toolbar>
+              <ion-buttons slot="start">
+                  <ion-icon slot="start" name="menu" (click)="openFirst($event)"color="primary"></ion-icon>
+                </ion-buttons>
+            <ion-title >AMS</ion-title>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content class="bg">
+          <ion-list>
+            <ion-menu-toggle auto-hide="false" *ngFor="let p of pages">
+              <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">
+                <ion-icon name="{{p.icon}}" color="primary"></ion-icon>&nbsp;&nbsp;
+                <ion-label>{{p.title}} </ion-label>
+              </ion-item>
+            </ion-menu-toggle>
+          </ion-list>
+          
+        </ion-content>
+      </ion-menu>
+      <ion-router-outlet id="content" main></ion-router-outlet>
+    </ion-split-pane>
+  
