@@ -51,4 +51,10 @@ async openHome(ev: Event) {
   });
   return await popover.present();
 }
+
+PostAccSap() {
+  // alert('SAP Posting');
+  this.global.PostRebate();
+}
+
 }
