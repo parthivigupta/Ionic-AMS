@@ -196,22 +196,6 @@ export class GlobalService {
 
   PostRebate(){
 
-    var headers = new Headers();
-    headers.append('Content-Type', 'application/xml');
-    headers.append('WMT-API-KEY',  '2f3f90aa-c52d-4176-927f-e4a667236d31');
-    headers.append('WMT-API-SECRET', 'R0aT2sU5oV5eV0tV2rV7sB7eC1yV4tL5xV6hH5rS8rR2cI6aT7');
-
-    // Hard Coded Value for Body
-    let xmlbody = "<?xml version=\"1.0\" encoding=\"ISO-8859-15\"?>\r\n<receivablePostRequest>\r\n  <meta>\r\n    <serviceVersion>1.0</serviceVersion>\r\n    <schemaVersion>1.0</schemaVersion>\r\n  </meta>\r\n  <data>\r\n    <header>\r\n    <cnsmrId/>\t\r\n      <tranId>Parthivi MX Testing - AMS 002</tranId>\r\n    </header>\t\r\n    <receivableEntries>\r\n      <receivableEntry>\r\n        <docDate>20181026</docDate>\r\n        <docHeaderText></docHeaderText>\r\n        <sourceId>CURIOS</sourceId>\r\n        <ledgerSystem>Finance</ledgerSystem>\r\n        <centralBuyingRegion>MX</centralBuyingRegion>\r\n        <currency>MXN</currency>\r\n        <country>MX</country>\r\n        <postingDate>20181026</postingDate>\r\n        <referenceKey1/>\r\n        <leadCompany>C031</leadCompany>\r\n\t\t\r\n        <receivableEntryLineItems>\r\n          <receivableEntryLineItem>\r\n            <assignmentNbr></assignmentNbr>\r\n            <referenceNbr>77322895</referenceNbr>\r\n            <docInfo>5137PROV_SETIEMBRE 2018_CFE_EDD0008</docInfo>\r\n            <department></department>\r\n            <legacyPO></legacyPO>\r\n            <accountType>C</accountType>\r\n            <accountID>1000252131</accountID>\r\n            <postCompany>C031</postCompany>\r\n            <postProfitCenter>MX04985R</postProfitCenter>\r\n            <costAmount>100</costAmount>\r\n          </receivableEntryLineItem>\r\n\t\t  \r\n          <receivableEntryLineItem>\r\n            <assignmentNbr></assignmentNbr>\r\n            <referenceNbr>77322895</referenceNbr>\r\n            <docInfo>5137PROV_SETIEMBRE 2018_CFE_EDD0008</docInfo>\r\n            <department>999</department>\r\n            <legacyPO></legacyPO>\r\n            <accountType>G</accountType>\r\n            <accountID>2305004</accountID>\r\n            <postCompany>C031</postCompany>\r\n            <postProfitCenter>MX04985R</postProfitCenter>\r\n            <costAmount>-100</costAmount>\r\n          </receivableEntryLineItem>\r\n          </receivableEntryLineItems>\r\n      </receivableEntry>\r\n    </receivableEntries>\r\n  </data>\r\n</receivablePostRequest>";
-    
-    this.https.post("https://api.qa.wal-mart.com/si/bofar/api/receivablePost", xmlbody, { headers: headers })
-    .subscribe(data => {
-      var array = data['_body'];
-      console.log(array);
-      alert('In this block');
-    }, error => {
-      console.log(error);
-    });
 
   }
 
